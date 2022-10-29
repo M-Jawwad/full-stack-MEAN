@@ -2,10 +2,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const bParser = require('body-parser');
+const cors = require('cors');
 // const dotenv = require('dotenv');
 
 const empRoutes = require('./routes/EmployeeRoutes');
 const authRoutes = require('./routes/AuthRouter');
+const userRoutes = require('./routes/UserRouter');
 
 // dotenv.config();
 
@@ -33,5 +35,7 @@ app.listen(PORT, () => {
     console.log(`Server is running on ${PORT} Port`);
 });
 
+app.use(cors({ origin: '*' }));
+app.use('/api/auth', authRoutes);
 app.use('/api/employee', empRoutes);
-app.use('/api', authRoutes);
+app.use('/api/user', userRoutes);

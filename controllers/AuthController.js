@@ -5,10 +5,10 @@ const jwt = require('jsonwebtoken');
 function users(req, res, next) {
     userModel.find().then((resp) => {
         res.json({
-            resp
+            data: resp
         });
     }).catch(err => {
-        res.json({
+        res.status().json({
             message: err
         });
     });
@@ -76,13 +76,13 @@ function login(req, res, next) {
                         token, refresh_token
                     })
                 } else {
-                    res.json({
+                    res.status(400).json({
                         message: 'Password does not matched!'
                     });
                 }
             })
         } else {
-            res.json({
+            res.status(404).json({
                 message: 'User not found'
             });
         }

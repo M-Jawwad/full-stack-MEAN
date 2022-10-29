@@ -10,11 +10,11 @@ function authenticate(req, res, next) {
         next()
     } catch (error) {
         if (error.name === 'TokenExpiredError') {
-            res.status(401).json({
-                message: 'Token Expired!'
-            });
+            res.status(401).send({ message: 'Token Expired!' });
+        } else if (error.name === 'TypeError') {
+            res.status(401).send({ message: 'Authication failed! ' });
         } else {
-            res.json({ message: 'Authication failed! ' + error.message });
+            res.status(400).send({ message: error.message });
         }
     }
 }
